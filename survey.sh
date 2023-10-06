@@ -61,6 +61,7 @@ then
   sort -n >"${usertype}/answers/.index"
 fi
 
+_ps_msg "Enter '?', 'h' or 'help' for help."
 while
   _ps_cmd
 do
