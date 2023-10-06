@@ -136,7 +136,7 @@ EOF
       ${VISUAL} "${fname}.tmp"
       # justify prefix spaces
       if
-        diff "${fname}" "${fname}.tmp"  >/dev/null
+        ! diff "${fname}" "${fname}.tmp" >/dev/null
       then
         sed -nE 's/^[[:blank:]]*/    /; p;' <"${fname}.tmp" >"${fname}"
       fi
@@ -183,10 +183,10 @@ EOF
         continue
       fi
       fname="$(sed -nE "${arg}p" <"${usertype}/answers/.index")"
-      cp ".skel/${fname}" "${fname}"
+      cp "${usertype}/.skel/${fname#*/}" "${fname}"
       ;;
     (R!|reset-all)
-      cp .skel/answers/* answers
+      cp "${usertype}/.skel/answers/"* "${usertype}/answers"
       ;;
     (*)
       _ps_msg "warning: Invalid command: ${cmd}"
