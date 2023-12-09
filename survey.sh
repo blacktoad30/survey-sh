@@ -30,6 +30,8 @@ _ps_line() {
 case "${usertype}" in
   ('')
     _ps_msg "Input your usertype"
+    find . \( -path . -o -prune \) -type d -a -not -name ".*" |
+    sed -nE 's/^\.\//- /; p;' 1>&2
     _ps_line
     usertype="${line:?}"
     ;;
@@ -40,8 +42,6 @@ if
 then
   _ps_msg "error: Invalid usertype: ${usertype}"
   _ps_msg "Check valid usertype"
-  find . \( -path . -o -prune \) -type d -a -not -name ".*" |
-  sed -nE 's/^\.\//- /; p;' 1>&2
   exit 2
 else
   _prompt="${usertype:+(${usertype:-}) }survey"
